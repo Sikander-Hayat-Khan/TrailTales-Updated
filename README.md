@@ -4,8 +4,8 @@ Welcome to TrailTales, your digital companion for documenting life’s journey. 
 
 ## Screenshots
 
-![alt text](<Screenshot 2025-12-23 082226.png>)
-![alt text](<Screenshot 2025-12-23 082255.png>)
+<img width="1811" height="913" alt="Screenshot 2025-12-23 082226" src="https://github.com/user-attachments/assets/2ee0db89-b259-471c-9f0e-347dd7330f17" />
+<img width="1809" height="898" alt="Screenshot 2025-12-23 082255" src="https://github.com/user-attachments/assets/16e220d1-5f29-4c37-b8d1-7656afdc4606" />
 
 ## Features
 

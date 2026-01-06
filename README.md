@@ -2,11 +2,6 @@
 
 Welcome to TrailTales, your digital companion for documenting life’s journey. TrailTales allows you to pin your memories to a map, organize them by date, and share your adventures with friends.
 
-# Screenshots
-
-![alt text](image.png)
-![alt text](image-1.png)
-
 ## Features
 
 - **Account Management:** Sign up, log in, and personalize your profile with an avatar color.

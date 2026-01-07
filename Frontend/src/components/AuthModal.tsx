@@ -1,16 +1,8 @@
 import { useState } from "react";
 import api from "../api/axios";
+import { USER_CONFIG } from "../config/constants";
 
 const AuthModal = ({ isOpen, onClose, authMode, setAuthMode, logo, handleToast, setIsLoggedIn, setUser }: any) => {
-  // Backend User model has 'username' and 'email'. 
-  // Frontend input placeholder says "Email".
-  // I should probably send 'email' as 'email' and 'username' as 'username'.
-  // But the current backend login uses 'username'.
-  // Let's check backend login logic again. It finds by {username: username}.
-  // So if user enters email in frontend, backend expects it to be 'username'.
-  // I will adjust frontend to send 'email' as 'email' and 'username' as 'username' for signup.
-  // For login, I'll assume username/email login.
-  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState(""); // This will be 'username'
@@ -69,8 +61,8 @@ const AuthModal = ({ isOpen, onClose, authMode, setAuthMode, logo, handleToast, 
         }
     }
 
-    if (password.length < 6) {
-      handleToast("Validation Error", "Password must be at least 6 characters.", "error");
+    if (password.length < USER_CONFIG.MIN_PASSWORD_LENGTH) {
+      handleToast("Validation Error", `Password must be at least ${USER_CONFIG.MIN_PASSWORD_LENGTH} characters.`, "error");
       return;
     }
 

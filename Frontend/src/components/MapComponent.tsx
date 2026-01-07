@@ -228,6 +228,10 @@ const MapComponent = ({ onMapClick, isDashboardOpen, activeView, onOpenMemory, o
     });
 
     memoriesToDisplay.forEach((memory: any) => {
+      // Skip orphaned memories (user deleted)
+      if (memory.userId && typeof memory.userId === 'object' && !memory.userId._id && !memory.userId.id) {
+        return; // Skip this memory
+      }
       // Handle both old format (coords array) and new format (location object)
       let lat, lng;
       if (memory.location && typeof memory.location === 'object') {
@@ -241,22 +245,19 @@ const MapComponent = ({ onMapClick, isDashboardOpen, activeView, onOpenMemory, o
 
       // Determine if it's a friend's memory
       let isFriendMemory = false;
-      
       // If userId is an object (populated), check IDs.
       // If userId is a string (not populated), it comes from 'getAllMemories' or 'searchMemories' which are user-scoped, so it's MINE.
       if (memory.userId && typeof memory.userId === 'object') {
-          const memoryUserId = memory.userId._id || memory.userId.id;
-          const currentUserId = userRef.current?._id || userRef.current?.id;
-          if (memoryUserId && currentUserId) {
-              isFriendMemory = String(memoryUserId) !== String(currentUserId);
-          }
+        const memoryUserId = memory.userId._id || memory.userId.id;
+        const currentUserId = userRef.current?._id || userRef.current?.id;
+        if (memoryUserId && currentUserId) {
+          isFriendMemory = String(memoryUserId) !== String(currentUserId);
+        }
       }
-      
       const iconToUse = isFriendMemory ? friendPinIcon : pinIcon;
 
       const marker = L.marker([lat, lng], { icon: iconToUse })
         .addTo(mapInstanceRef.current as L.Map);
-      
       // Add click handler to open view modal
       marker.on('click', (e: any) => {
         L.DomEvent.stopPropagation(e); // Prevent map click
@@ -264,7 +265,6 @@ const MapComponent = ({ onMapClick, isDashboardOpen, activeView, onOpenMemory, o
           onMemoryClickRef.current(memory);
         }
       });
-      
       markersRef.current.push(marker);
     });
   }, [memories, filteredMemories, user]);
@@ -408,7 +408,7 @@ const MapComponent = ({ onMapClick, isDashboardOpen, activeView, onOpenMemory, o
                     </button>
                 )}
                 
-                <div style={{ width: '1px', height: '24px', background: '#e0e0e0', margin: '0 10px' }}></div>
+                <div className="awein" style={{ width: '1px', height: '24px', background: '#e0e0e0', margin: '0 5px' }}></div>
                 
                 <button
                     type="button"

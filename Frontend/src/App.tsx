@@ -111,6 +111,7 @@ function App() {
           setProfileModalOpen={setProfileModalOpen}
           isLoggedIn={isLoggedIn}
           handleLogout={handleLogout}
+          handleToast={handleToast}
           user={user}
         />
 
@@ -133,7 +134,11 @@ function App() {
           setUser={setUser}
         />
 
-        <LandingSection setDashboardOpen={setDashboardOpen} user={user} />
+        <LandingSection 
+          setDashboardOpen={setDashboardOpen} 
+          setActiveView={setActiveView}
+          user={user} 
+        />
       </section>
 
       <Suspense fallback={<div className="loading-screen">Loading Dashboard...</div>}>

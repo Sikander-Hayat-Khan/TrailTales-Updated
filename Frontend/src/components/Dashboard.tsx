@@ -278,7 +278,7 @@ const Dashboard = ({
             memory={selectedMemory}
             onEdit={handleEditMemory}
             onDelete={handleDeleteMemory}
-            currentUser={user}
+            user={user}
           />
         )}
 

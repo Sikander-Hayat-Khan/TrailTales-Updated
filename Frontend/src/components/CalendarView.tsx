@@ -105,7 +105,7 @@ const CalendarView = ({ memories, friendsMemories = [], onDateClick, onSave }: a
         <h2>Your Journey Calendar</h2>
       </div>
       
-      <div className="months-scroll-container">
+      <div className={`months-scroll-container ${selectedDateMemories || viewingMemory ? 'blurred' : ''}`}>
         {months.map((monthDate: any, index: any) => {
           const { days, firstDay } = getDaysInMonth(monthDate);
           const monthName = monthDate.toLocaleString('default', { month: 'long' });
@@ -263,19 +263,21 @@ const CalendarView = ({ memories, friendsMemories = [], onDateClick, onSave }: a
                 </div>
 
                 <div className="detail-actions">
-                  {isEditingStory ? (
-                    <>
-                      <button className="save-story-btn" onClick={handleSaveStory}>
-                        <i className="ph ph-check"></i> Save
+                  {!viewingMemory.isFriend && (
+                    isEditingStory ? (
+                      <>
+                        <button className="save-story-btn" onClick={handleSaveStory}>
+                          <i className="ph ph-check"></i> Save
+                        </button>
+                        <button className="cancel-edit-btn" onClick={() => setIsEditingStory(false)}>
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button className="edit-story-btn" onClick={() => setIsEditingStory(true)}>
+                        <i className="ph ph-pencil-simple"></i> Edit Story
                       </button>
-                      <button className="cancel-edit-btn" onClick={() => setIsEditingStory(false)}>
-                        Cancel
-                      </button>
-                    </>
-                  ) : (
-                    <button className="edit-story-btn" onClick={() => setIsEditingStory(true)}>
-                      <i className="ph ph-pencil-simple"></i> Edit Story
-                    </button>
+                    )
                   )}
                 </div>
               </div>

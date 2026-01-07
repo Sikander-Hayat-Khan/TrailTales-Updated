@@ -20,7 +20,6 @@
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 100% 100%, 100% 100%, 50px 50px, 50px 50px;
 }
-
 /* Nav */
 nav {
   display: flex;
@@ -738,6 +737,9 @@ nav {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 0.85rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .back-home-btn i {
@@ -2142,79 +2144,120 @@ input:checked + .slider:before { transform: translateX(22px); }
 
 /* Delete Confirmation Modal */
 .delete-confirm-window {
-  background: rgba(22, 27, 34, 0.95);
+  background: linear-gradient(145deg, #1e2330, #151925);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08); /* More subtle border */
   border-radius: 24px;
-  padding: 30px;
+  padding: 40px 30px;
   width: 90%;
-  max-width: 400px;
+  max-width: 420px;
   text-align: center;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 20px 60px -10px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin: 0; /* Centered by flex container */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add a subtle top highlight glow */
+.delete-confirm-window::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
 }
 
 .delete-icon-wrapper {
-  width: 80px;
-  height: 80px;
-  background: rgba(255, 100, 100, 0.1);
+  width: 72px;
+  height: 72px;
+  background: rgba(255, 71, 87, 0.1);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 20px;
+  margin: 0 auto 24px;
+  position: relative;
+  border: 1px solid rgba(255, 71, 87, 0.15);
 }
 
 .delete-icon-wrapper i {
-  font-size: 40px;
-  color: #ff6464;
+  font-size: 32px;
+  color: #ff4757;
+  filter: drop-shadow(0 2px 4px rgba(255, 71, 87, 0.3));
 }
 
 .delete-confirm-window h3 {
   color: #fff;
-  font-size: 1.5rem;
-  margin-bottom: 10px;
+  font-size: 1.6rem; /* Slightly larger */
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
 }
 
 .delete-confirm-window p {
-  color: #8899a6;
-  margin-bottom: 25px;
-  line-height: 1.5;
+  color: #a0aec0; /* Softer text color */
+  margin-bottom: 32px;
+  line-height: 1.6;
+  font-size: 1rem;
 }
 
 .delete-confirm-window p strong {
-  color: #d9d9d9;
+  color: #dde1e7;
+  font-weight: 600;
 }
 
 .delete-actions {
   display: flex;
-  gap: 15px;
-  justify-content: center;
+  gap: 12px;
+  justify-content: stretch;
 }
 
 .delete-actions button {
-  padding: 12px 24px;
-  border-radius: 12px;
+  flex: 1; /* Make buttons equal width */
+  padding: 14px 20px;
+  border-radius: 14px; /* More rounded */
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  border: none;
-  font-size: 1rem;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .cancel-btn {
   background: rgba(255, 255, 255, 0.05);
-  color: #fff;
+  color: #cbd5e0;
+  border: 1px solid transparent;
 }
 
 .cancel-btn:hover {
   background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transform: translateY(-2px);
 }
 
 .confirm-delete-btn {
-  background: #ff6464;
+  background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
   color: #fff;
-  box-shadow: 0 4px 15px rgba(255, 100, 100, 0.3);
+  border: none;
+  box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+}
+
+.confirm-delete-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(255, 71, 87, 0.4);
+}
+
+.confirm-delete-btn:active {
+  transform: translateY(0);
 }
 
 .confirm-delete-btn:hover {
@@ -2345,7 +2388,7 @@ input:checked + .slider:before { transform: translateX(22px); }
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(5px);
-  z-index: 200;
+  z-index: 2100; /* Higher than back-home-btn (2000) */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2713,3 +2756,508 @@ input:checked + .slider:before { transform: translateX(22px); }
   }
 }
 
+
+/* Responsive Adjustments for Mobile */
+@media (max-width: 768px) {
+  /* Create a side-by-side layout for Back Button and Search Bar */
+
+  /* 1. Transform Back Button into a small round icon button */
+  .back-home-btn {
+    top: 20px;
+    left: 15px;
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0; /* Hide the "Back" text */
+    gap: 0; /* Remove gap */
+    z-index: 2000;
+  }
+
+  /* Restore icon size since parent is font-size: 0 */
+  .back-home-btn i {
+    font-size: 1.2rem;
+    margin: 0;
+    /* Rotate the arrow (down) to point left */
+    transform: rotate(90deg); 
+  }
+
+  /* Disable hover movement on mobile to prevent weird rotation bugs */
+  .back-home-btn:hover i {
+    transform: rotate(90deg);
+  }
+
+  /* 2. Position Search Bar to the right of the button */
+  .map-search-container {
+    top: 20px;
+    left: 70px; /* 15px (left) + 45px (btn) + 10px (gap) */
+    width: calc(100% - 85px); /* 100% - (70px left + 15px right margin) */
+    transform: none; /* Disable the centering transform */
+    max-width: none;
+  }
+
+  /* Adjust search form padding for smaller screens */
+  .map-search-container form {
+    padding: 0 15px;
+    height: 45px; /* Match button height */
+  }
+  
+  .map-search-container input {
+    font-size: 0.95rem;
+  }
+  .awein {
+    margin: 2px;
+  }
+}
+
+/* Responsive Adjustments for Calendar View */
+@media (max-width: 768px) {
+  /* Fix sticky header */
+  .calendar-view-container .calendar-header-fixed {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: #151925;
+    padding: 15px 20px 10px 80px; /* Left padding creates space for the back button */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align title significantly to the left if needed, or stick to padding */
+    height: 80px; /* Ensure enough height */
+  }
+
+  /* Title adjustments */
+  .calendar-view-container .calendar-header-fixed h2 {
+    font-size: 1.2rem; /* Smaller title for mobile */
+    margin: 0;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Entries Panel Bottom Sheet */
+  .calendar-entries-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50vh; /* Take up half screen height on mobile */
+    max-height: 50vh;
+    border-radius: 20px 20px 0 0; /* Rounded top corners */
+    background: #1e2330;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    z-index: 2000;
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: none; /* Reset distinct desktop transform if any */
+    top: auto; /* Override desktop absolute/fixed positioning if needed */
+    right: 0;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-bottom: none;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .entries-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .entries-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    padding-bottom: 80px; /* Extra padding for mobile nav bar */
+  }
+}
+  /* Ensure back button arrow is correctly orientated for calendar view */
+  /* If the icon class is .ph-arrow-left, we want it to point LEFT. */
+
+
+/* Responsive Adjustments for Memory Save Modal */
+@media (max-width: 768px) {
+  .memory-modal-window {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none; /* remove max-height constraint */
+    border-radius: 0;
+    border: none;
+    padding: 20px; /* Reduced padding */
+    padding-bottom: 80px; /* Allow space for scrolling past content */
+    display: flex; /* Ensure it respects flex properties if needed */
+    flex-direction: column;
+  }
+
+  /* Make form row (Mood & Tags) stack vertically */
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group.half {
+    width: 100%;
+  }
+
+  /* Adjust mood selector spacing */
+  .mood-selector {
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .mood-btn {
+    flex: 1; /* evenly distribute */
+    height: 50px; /* slightly larger tap target */
+  }
+
+  /* Ensure inputs are touch-friendly */
+  .form-group input[type="text"],
+  .form-group input[type="date"], 
+  .form-group textarea,
+  .form-group select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 12px;
+  }
+
+  /* Header adjustments */
+  .memory-header {
+    margin-top: 10px; /* Adjust spacing */
+    margin-bottom: 20px;
+  }
+
+  /* Fix Close button position */
+  .close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    z-index: 10;
+  }
+
+  /* Make the Save button sticky at bottom or just large block at end */
+  .save-memory-btn {
+    width: 100%;
+    margin-top: auto; /* Push to bottom if container has height */
+    padding: 16px;
+    border-radius: 12px;
+  }
+}
+
+/* Responsive Adjustments for Memory View Modal */
+@media (max-width: 768px) {
+  .memory-view-window {
+    width: 95%;
+    max-width: 95%;
+    height: auto;
+    max-height: 85vh;
+    border-radius: 20px;
+    margin: auto; /* Center it */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .view-header {
+    padding: 20px 20px 15px; /* Reduced side padding */
+    flex-direction: column; /* Stack date and actions */
+    align-items: flex-start; /* Align left */
+    gap: 12px;
+  }
+
+  /* Make space for the absolute close button */
+  .view-date-badge {
+    max-width: 85%; /* Avoid hitting close button if on same line (though we stacked) */
+    font-size: 0.85rem;
+  }
+
+  .view-actions {
+    width: 100%;
+    justify-content: flex-start; /* Align actions to start */
+    flex-wrap: wrap; /* allow wrapping if many buttons */
+  }
+
+  .view-content {
+    padding: 0 20px 20px;
+  }
+
+  .view-title {
+    font-size: 1.6rem; /* Smaller title */
+    margin: 15px 0 10px;
+  }
+
+  .view-gallery {
+    margin-bottom: 20px;
+  }
+  
+  .view-image-container {
+    flex: 0 0 160px; /* Slightly smaller images */
+    height: 120px;
+  }
+
+  .view-actions .edit-btn, 
+  .view-actions .delete-btn {
+     /* Ensure buttons are touch friendly */
+     min-height: 40px;
+  }
+  
+  /* Adjust the close button to be sure it's clickable and positioned well on mobile */
+  .memory-view-window .close-modal-btn {
+    top: 15px;
+    right: 15px;
+    font-size: 1.8rem; /* Larger touch target */
+    background: rgba(0,0,0,0.2); /* faint background to visualize hit area if needed, or just better visibility */
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+}
+
+
+
+ 
+ / *   R e s p o n s i v e   A d j u s t m e n t s   f o r   M e m o r y   D e t a i l   O v e r l a y   * / 
+ 
+ @ m e d i a   ( m a x - w i d t h :   7 6 8 p x )   { 
+ 
+     . m e m o r y - d e t a i l - w i n d o w   { 
+ 
+         w i d t h :   1 0 0 % ; 
+ 
+         h e i g h t :   1 0 0 % ; 
+ 
+         m a x - w i d t h :   n o n e ; 
+ 
+         b o r d e r - r a d i u s :   0 ; 
+ 
+         b o r d e r :   n o n e ; 
+ 
+     } 
+ 
+ 
+ 
+     . d e t a i l - c o n t e n t   { 
+ 
+         f l e x - d i r e c t i o n :   c o l u m n ; 
+ 
+     } 
+ 
+ 
+ 
+     / *   I m a g e   S e c t i o n   o n   T o p   * / 
+ 
+     . d e t a i l - l e f t   { 
+ 
+         w i d t h :   1 0 0 % ; 
+ 
+         h e i g h t :   3 5 v h ;   / *   F i x e d   h e i g h t   r e l a t i v e   t o   s c r e e n   * / 
+ 
+         m i n - h e i g h t :   2 5 0 p x ; 
+ 
+         f l e x :   n o n e ;   / *   D o   n o t   f l e x   * / 
+ 
+         b o r d e r - r i g h t :   n o n e ; 
+ 
+         b o r d e r - b o t t o m :   1 p x   s o l i d   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 1 ) ; 
+ 
+     } 
+ 
+ 
+ 
+     / *   C o n t e n t   S e c t i o n   B e l o w   * / 
+ 
+     . d e t a i l - r i g h t   { 
+ 
+         w i d t h :   1 0 0 % ; 
+ 
+         f l e x :   1 ;   / *   T a k e   r e m a i n i n g   h e i g h t   * / 
+ 
+         o v e r f l o w - y :   a u t o ;   / *   S c r o l l a b l e   t e x t   a r e a   * / 
+ 
+         p a d d i n g :   2 0 p x ; 
+ 
+     } 
+ 
+ } 
+
+/* Enhanced Mobile Responsiveness for Landing View */
+@media (max-width: 600px) {
+  /* Hide the floating bubble images on mobile to reduce clutter and overlap */
+  .bubble-image, .float-icon, .float-circle {
+    display: none !important;
+  }
+
+  .hero-section {
+    padding-top: 20px; /* Push content up */
+    padding-bottom: 20px;
+    gap: 20px !important;
+    justify-content: flex-start; /* Align to top instead of center */
+    height: 100vh;
+    overflow-y: scroll; /* Allow scrolling if content is too tall */
+    overflow-x: hidden;
+  }
+  
+  .content-box {
+    margin-top: 15vh; /* Give some top spacing */
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10; /* Ensure text is above everything */
+  }
+
+  .content-box h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+    min-height: auto; 
+    text-align: center;
+  }
+
+  /* Hide the decorative line next to "Start your journey" for a cleaner look */
+  .content-box h4::before {
+    display: none;
+  }
+  
+  .content-box h4 {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .content-box p {
+    font-size: 1rem;
+    line-height: 1.4;
+    padding: 0 20px; 
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .cta-btn {
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    width: 80%;
+    max-width: 300px;
+    margin-top: 10px;
+  }
+  
+  .carousel-container {
+    flex: 0 0 350px; /* Fixed height for carousel area */
+    max-height: 40vh;
+    margin-top: 30px; 
+    margin-bottom: 20px;
+    transform: scale(1) !important;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .card-stack {
+    transform: scale(0.65);
+    transform-origin: center center;
+  }
+
+  /* Arrows for carousel */
+  .nav-arrow {
+    background: rgba(255,255,255,0.1);
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+
+  nav {
+    padding: 0.8rem 5%;
+    background: rgba(21, 25, 37, 0.95);
+    position: fixed; /* Fix nav to top */
+    top: 0;
+    width: 100%;
+    z-index: 100;
+  }
+}
+
+@media (max-width: 380px) {
+  .content-box h1 {
+    font-size: 1.8rem;
+  }
+  .carousel-container {
+    flex: 0 0 280px;
+  }
+  .card-stack {
+    transform: scale(0.55);
+  }
+  .content-box {
+    margin-top: 12vh;
+  }
+}
+
+/* Responsive Adjustments for Calendar Memory Detail Overlay */
+@media (max-width: 768px) {
+  .memory-detail-window {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    border: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Make the content area stack vertically */
+  .detail-content {
+    flex-direction: column;
+    flex: 1; /* occupy remaining space */
+    overflow-y: auto; /* allow overall scroll if needed, though usually right side scrolls */
+  }
+
+  /* Image Section on Top */
+  .detail-left {
+    width: 100%;
+    height: 35vh; /* Fixed height for image area */
+    min-height: 250px;
+    flex: none; /* Don't grow/shrink */
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Ensure background image covers the area properly */
+  .carousel-image {
+    background-size: cover; 
+  }
+
+  /* Text Content Section Below */
+  .detail-right {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+
+  /* Adjust header size */
+  .detail-header h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Adjust nav buttons in carousel to be smaller/better positioned */
+  .carousel-nav {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  .carousel-nav.prev { left: 10px; }
+  .carousel-nav.next { right: 10px; }
+}

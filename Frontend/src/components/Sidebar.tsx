@@ -42,6 +42,10 @@ const Sidebar = ({
                     setFriendRequests(requestsRes.data.requests);
                 }
             } catch (error: any) {
+                // Ignore 404 errors which happen when user is deleted/logged out but component hasn't unmounted yet
+                if (error.response && error.response.status === 404) {
+                   return;
+                }
                 console.error("Failed to fetch friends data", error);
             }
         };

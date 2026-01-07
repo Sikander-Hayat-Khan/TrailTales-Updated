@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import api from "../api/axios";
 
-const LandingSection = ({ setDashboardOpen, user }: any) => {
+const LandingSection = ({ setDashboardOpen, setActiveView, user }: any) => {
   const [currentCard, setCurrentCard] = useState(0);
   const [typingText, setTypingText] = useState("");
   const [userImages, setUserImages] = useState<string[]>([]);
@@ -115,7 +115,10 @@ const LandingSection = ({ setDashboardOpen, user }: any) => {
           Pin your moments, share your adventures, and turn your travels into a
           timeless journal. Join a community of explorers today.
         </p>
-        <button className="cta-btn" onClick={() => setDashboardOpen(true)}>
+        <button className="cta-btn" onClick={() => {
+          setDashboardOpen(true);
+          if (setActiveView) setActiveView("map");
+        }}>
           Start Journaling <i className="ph ph-arrow-right"></i>
         </button>
       </div>

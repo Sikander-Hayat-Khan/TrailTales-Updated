@@ -1,4 +1,6 @@
-
+import { useState } from "react";
+import api from "../api/axios";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
 const Navbar = ({
   logo,
@@ -9,8 +11,11 @@ const Navbar = ({
   setProfileModalOpen,
   isLoggedIn,
   handleLogout,
+  handleToast,
   user,
 }: any) => {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   return (
     <nav>
       <div className="logo">
@@ -104,9 +109,45 @@ const Navbar = ({
                 <i className="ph ph-sign-out"></i> Log Out
               </button>
             )}
+            {isLoggedIn && (
+              <button 
+                className="dropdown-item delete-profile-link" 
+                onClick={(e: any) => {
+                  e.preventDefault();
+                  setShowDeleteModal(true);
+                  setProfileDropdownOpen(false);
+                }}
+                role="menuitem"
+              >
+                <i className="ph ph-trash"></i> Delete Profile
+              </button>
+            )}
           </div>
         </div>
       </div>
+      
+      <DeleteConfirmationModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={async () => {
+          try {
+            const res = await api.delete("/profile");
+            if (res.status === 200) {
+              handleToast("Profile Deleted", "Your profile has been successfully deleted.", "success");
+              handleLogout();
+            } else {
+              handleToast("Error", "Failed to delete profile. Please try again.", "error");
+            }
+          } catch (err) {
+            console.error("Error deleting profile:", err);
+            handleToast("Error", "An unexpected error occurred while deleting your profile.", "error");
+          } finally {
+            setShowDeleteModal(false);
+          }
+        }}
+        title="Delete Profile?"
+        message="Are you sure you want to delete your profile? This will permanently delete all your memories, messages, and friend requests. This action cannot be undone."
+      />
     </nav>
   );
 };

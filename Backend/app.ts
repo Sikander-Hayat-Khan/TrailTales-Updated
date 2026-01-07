@@ -61,6 +61,7 @@ async function start(){
         const port = process.env.PORT || 5000
         app.listen(port,()=>{
             console.log(`Server is listening on port ${port}...`)
+            console.log(`Server version: ${new Date().toISOString()} - Profile DELETE fix applied`);
         })
     } catch (error) {
         console.log("ERROR STARTING SERVER:");

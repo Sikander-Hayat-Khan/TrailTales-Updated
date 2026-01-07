@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { login,logout,signup,auth } from "../controllers/loginSignup.js";
 import { getAllMemories, createMemory, getMemory, updateMemory, deleteMemory, getPublicMemories, getFriendsMemories, searchMemories } from "../controllers/memoryController.js";
-import { getProfile, updateProfile, addFriend, getFriends, fixUserData } from "../controllers/userController.js";
+import { getProfile, updateProfile, addFriend, getFriends, fixUserData, deleteUser } from "../controllers/userController.js";
 import authorization from "../middleware/auth.js";
 import multer from "multer";
 import { storage } from "../config/cloudinary.js";
@@ -9,7 +9,6 @@ import { storage } from "../config/cloudinary.js";
 const upload = multer({ storage: storage });
 
 const userRouter = Router()
-
 // Auth Routes
 userRouter.post("/login",login)
 userRouter.post("/signup",signup)
@@ -32,7 +31,11 @@ userRouter.route("/memories/:id")
     .delete(authorization, deleteMemory);
 
 // User/Profile Routes
-userRouter.route("/profile").get(authorization, getProfile).patch(authorization, updateProfile);
+userRouter.route("/profile")
+    .get(authorization, getProfile)
+    .patch(authorization, updateProfile)
+    .delete(authorization, deleteUser);
+    
 userRouter.route("/fix-users").get(fixUserData); // Temporary route to fix data
 
 export default userRouter

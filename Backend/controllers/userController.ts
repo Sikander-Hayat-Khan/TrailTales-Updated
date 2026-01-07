@@ -1,8 +1,48 @@
 import { Request, Response } from "express";
+import mongoose from "mongoose";
 import User from "../models/User.js";
 import Memory from "../models/Memory.js";
+import Message from "../models/Message.js";
+import FriendRequest from "../models/FriendRequest.js";
 import { assert, sanitizeObject } from "../utils/helpers.js";
 import { USER_CONFIG } from "../config/constants.js";
+
+/**
+ * Deletes a user and all associated data (memories, messages, friend requests).
+ * Can be used for self-deletion or admin deletion.
+ */
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    let userId = (req.user as any).userID;
+    // Ensure userId is an ObjectId
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ msg: "Invalid user ID" });
+    }
+    userId = new mongoose.Types.ObjectId(userId);
+
+    // Delete all memories by this user
+    await Memory.deleteMany({ userId });
+
+    // Delete all messages sent or received by this user
+    await Message.deleteMany({ $or: [ { sender: userId }, { receiver: userId } ] });
+
+    // Delete all friend requests sent or received by this user
+    await FriendRequest.deleteMany({ $or: [ { sender: userId }, { receiver: userId } ] });
+
+    // Remove this user from other users' friends lists
+    await User.updateMany(
+      { friends: userId },
+      { $pull: { friends: userId } }
+    );
+
+    // Finally, delete the user
+    await User.findByIdAndDelete(userId);
+
+    res.status(200).json({ msg: "User and all associated data deleted successfully." });
+  } catch (error) {
+    res.status(500).json({ msg: (error as any).message });
+  }
+};
 
 export const getProfile = async (req: Request, res: Response) => {
   try {

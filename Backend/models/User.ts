@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken"
+import { USER_CONFIG } from "../config/constants.js"
 
 const UserSchema = new mongoose.Schema({
     username:{
@@ -20,12 +21,13 @@ const UserSchema = new mongoose.Schema({
     },
     password:{
         type: String,
-        required: [true,"No password provided"]
+        required: [true,"No password provided"],
+        minlength: USER_CONFIG.MIN_PASSWORD_LENGTH
     },
     bio: {
         type: String,
-        default: "Just a traveler exploring the world one pin at a time.",
-        maxlength: 150,
+        default: "I travel to avoid people… and sometimes find more.",
+        maxlength: USER_CONFIG.MAX_BIO_LENGTH
     },
     avatarColor: {
         type: String,

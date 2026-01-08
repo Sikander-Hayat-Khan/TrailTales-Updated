@@ -3366,26 +3366,26 @@ input:checked + .slider:before { transform: translateX(22px); }
   }
 
   .detail-content {
-      flex-direction: row; /* Horizontal separation (Side-by-side) */
+      flex-direction: column; /* Stack vertically (Image Top, Text Bottom) */
       height: 100%;
       overflow: hidden;
   }
   
   .detail-left {
-    height: 100%; 
-    width: 40%; /* Image section takes 40% width */
-    min-height: auto;
-    border-right: 1px solid rgba(255,255,255,0.1);
-    border-bottom: none;
+    height: 40%; /* Image section height */
+    width: 100%;
+    min-height: 200px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.1); /* Horizontal separator */
     flex-shrink: 0; 
   }
   
   .detail-right {
-    height: 100%; 
-    flex: 1; /* Take remaining space */
-    width: 60%;
-    padding: 15px;
-    overflow-y: auto; /* Scroll text independently */
+    height: auto;
+    flex: 1; /* Take remaining height */
+    width: 100%;
+    padding: 20px;
+    overflow-y: auto; 
   }
   
   .back-btn {

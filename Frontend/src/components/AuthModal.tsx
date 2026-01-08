@@ -75,15 +75,17 @@ const AuthModal = ({ isOpen, onClose, authMode, setAuthMode, logo, handleToast, 
     let payload = {};
     if (authMode === "signup") {
         payload = { 
-            username: fullName, // Mapping Full Name input to Username for now, or I should add a separate field.
+            username: fullName, // Mapping Full Name input to Username
             email: email,
             password: password 
         };
     } else {
-        // Login
         // Backend expects 'username' but we might want to allow email login.
         // For now, let's send the input as 'username' to match backend.
-        payload = { username: email, password }; 
+        payload = { 
+          username: email, 
+          password: password 
+        }; 
     }
 
     try {

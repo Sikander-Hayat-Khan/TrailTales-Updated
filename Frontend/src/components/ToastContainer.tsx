@@ -1,5 +1,3 @@
-
-
 const ToastContainer = ({ toasts }: any) => {
   return (
     <div id="toast-container">

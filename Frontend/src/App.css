@@ -315,6 +315,7 @@ nav {
   justify-content: center;
   font-family: inherit;
   font-size: 1rem;
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
 .btn-login { 
@@ -3025,239 +3026,426 @@ input:checked + .slider:before { transform: translateX(22px); }
   }
 }
 
+/* ==========================================================================
+   Compresensive Mobile Responsiveness Overrides
+   Targeting: Buttons, Carousel, Map, Search, Modals, Calendar
+   ========================================================================== */
 
-
- 
- / *   R e s p o n s i v e   A d j u s t m e n t s   f o r   M e m o r y   D e t a i l   O v e r l a y   * / 
- 
- @ m e d i a   ( m a x - w i d t h :   7 6 8 p x )   { 
- 
-     . m e m o r y - d e t a i l - w i n d o w   { 
- 
-         w i d t h :   1 0 0 % ; 
- 
-         h e i g h t :   1 0 0 % ; 
- 
-         m a x - w i d t h :   n o n e ; 
- 
-         b o r d e r - r a d i u s :   0 ; 
- 
-         b o r d e r :   n o n e ; 
- 
-     } 
- 
- 
- 
-     . d e t a i l - c o n t e n t   { 
- 
-         f l e x - d i r e c t i o n :   c o l u m n ; 
- 
-     } 
- 
- 
- 
-     / *   I m a g e   S e c t i o n   o n   T o p   * / 
- 
-     . d e t a i l - l e f t   { 
- 
-         w i d t h :   1 0 0 % ; 
- 
-         h e i g h t :   3 5 v h ;   / *   F i x e d   h e i g h t   r e l a t i v e   t o   s c r e e n   * / 
- 
-         m i n - h e i g h t :   2 5 0 p x ; 
- 
-         f l e x :   n o n e ;   / *   D o   n o t   f l e x   * / 
- 
-         b o r d e r - r i g h t :   n o n e ; 
- 
-         b o r d e r - b o t t o m :   1 p x   s o l i d   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 1 ) ; 
- 
-     } 
- 
- 
- 
-     / *   C o n t e n t   S e c t i o n   B e l o w   * / 
- 
-     . d e t a i l - r i g h t   { 
- 
-         w i d t h :   1 0 0 % ; 
- 
-         f l e x :   1 ;   / *   T a k e   r e m a i n i n g   h e i g h t   * / 
- 
-         o v e r f l o w - y :   a u t o ;   / *   S c r o l l a b l e   t e x t   a r e a   * / 
- 
-         p a d d i n g :   2 0 p x ; 
- 
-     } 
- 
- } 
-
-/* Enhanced Mobile Responsiveness for Landing View */
-@media (max-width: 600px) {
-  /* Hide the floating bubble images on mobile to reduce clutter and overlap */
-  .bubble-image, .float-icon, .float-circle {
-    display: none !important;
-  }
-
-  .hero-section {
-    padding-top: 20px; /* Push content up */
-    padding-bottom: 20px;
-    gap: 20px !important;
-    justify-content: flex-start; /* Align to top instead of center */
-    height: 100vh;
-    overflow-y: scroll; /* Allow scrolling if content is too tall */
-    overflow-x: hidden;
-  }
+@media (max-width: 768px) {
   
+  /* --- GLOBAL RESETS & TOUCH TARGETS --- */
+  button, 
+  .cta-btn, 
+  .nav-arrow, 
+  .back-home-btn, 
+  .close-modal-btn,
+  .friends-toggle-btn,
+  .location-btn,
+  .clear-search,
+  .add-friend-btn,
+  .msg-icon-btn,
+  .send-btn,
+  .edit-profile-btn,
+  .btn-profile-header {
+    cursor: pointer;
+    touch-action: manipulation; /* Improve touch response */
+    -webkit-tap-highlight-color: transparent; /* Remove grey tap box */
+  }
+
+  /* --- LANDING SECTION RESPONSIVENESS --- */
+  .hero-section {
+    flex-direction: column;
+    padding: 80px 20px 40px; /* Top padding for fixed nav */
+    gap: 30px;
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    justify-content: flex-start;
+  }
+
   .content-box {
-    margin-top: 15vh; /* Give some top spacing */
-    flex: 0 0 auto;
+    max-width: 100%;
+    flex: none;
+    text-align: center;
+    padding: 0;
+  }
+
+  .content-box h1 {
+    font-size: 2.5rem; /* Readable prompt */
+    min-height: auto;
+    margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 10; /* Ensure text is above everything */
-  }
-
-  .content-box h1 {
-    font-size: 2.2rem;
-    margin-bottom: 0.5rem;
-    line-height: 1.1;
-    min-height: auto; 
-    text-align: center;
-  }
-
-  /* Hide the decorative line next to "Start your journey" for a cleaner look */
-  .content-box h4::before {
-    display: none;
   }
   
   .content-box h4 {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
     justify-content: center;
-    width: 100%;
   }
-  
+
   .content-box p {
     font-size: 1rem;
-    line-height: 1.4;
-    padding: 0 20px; 
-    margin-bottom: 1.5rem;
-    text-align: center;
+    padding: 0 10px;
   }
-  
-  .cta-btn {
-    padding: 1rem 2.5rem;
-    font-size: 1rem;
-    width: 80%;
-    max-width: 300px;
-    margin-top: 10px;
-  }
-  
+
+  /* Image Carousel */
   .carousel-container {
-    flex: 0 0 350px; /* Fixed height for carousel area */
-    max-height: 40vh;
-    margin-top: 30px; 
-    margin-bottom: 20px;
-    transform: scale(1) !important;
+    max-width: 100%;
+    flex: none;
+    height: 350px;
     width: 100%;
+    margin-top: 20px;
+    transform: none !important; /* Reset any desktop hover transforms */
+  }
+
+  .card-stack {
+    width: 260px; /* Narrower for mobile */
+    height: 340px;
+    transform: scale(0.9);
+  }
+
+  /* Carousel Navigation Buttons (Upward/Sideways direction buttons) */
+  .nav-arrow {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+    margin: 0 5px; /* Tighter spacing */
+    background: rgba(255,255,255,0.1); /* More visible background */
+    backdrop-filter: blur(8px);
+  }
+
+  /* --- MAP COMPONENTS --- */
+  
+  /* Back Button - Top Left */
+  .back-home-btn {
+    top: 15px; /* Align with search bar */
+    left: 15px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    padding: 0;
+    justify-content: center;
+    font-size: 0; /* Hide text */
+    background: rgba(21, 25, 37, 0.9);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+  
+  .back-home-btn i {
+    font-size: 1.4rem;
+    margin: 0;
+    transform: rotate(0deg); /* Reset rotation unless specifically needed */
+  }
+
+  /* Search Bar - Flowing right of back button */
+  .map-search-container {
+    top: 15px;
+    left: 70px; /* Clear the back button (15px + 45px + 10px gap) */
+    width: calc(100% - 85px); /* Remaining width minus margins */
+    max-width: none;
+    padding-right: 15px;
+    transform: none; /* Remove centering transform */
+  }
+
+  .map-search-container form {
+    height: 45px; /* Match back button height */
+    padding: 0 10px;
+    border-radius: 25px;
+  }
+
+  .map-search-container input {
+    font-size: 0.9rem;
+    min-width: 0; /* Allow shrinking */
+  }
+  
+  /* Buttons inside search bar */
+  .location-btn, .friends-toggle-btn, .clear-search {
+    font-size: 1.2rem;
+    padding: 5px;
+    width: 35px; /* Explicit width for touch target */
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
-  .card-stack {
-    transform: scale(0.65);
-    transform-origin: center center;
+  /* Search Results Dropdown */
+  .search-results {
+    top: 55px; /* Below search bar */
+    max-height: 40vh; /* Don't cover entire map */
   }
 
-  /* Arrows for carousel */
-  .nav-arrow {
-    background: rgba(255,255,255,0.1);
-    width: 35px;
-    height: 35px;
-    font-size: 1.2rem;
+  /* Map Popups (Memory Storing Window / Friend Window) */
+  .leaflet-popup-content-wrapper {
+    min-width: 260px;
+    
+  }
+  
+  .new-pin-form {
+    min-width: 240px;
+  }
+  
+  .new-pin-form h4 {
+    font-size: 1rem;
+  }
+  
+  .new-pin-form input, .new-pin-form button {
+    padding: 10px;
+    font-size: 0.9rem;
   }
 
-  nav {
-    padding: 0.8rem 5%;
-    background: rgba(21, 25, 37, 0.95);
-    position: fixed; /* Fix nav to top */
+  /* --- CALENDAR VIEW --- */
+  
+  /* Calendar Header */
+  .calendar-header-fixed {
+    position: sticky;
     top: 0;
+    left: 0;
     width: 100%;
+    padding: 10px 15px 10px 80px; /* Left padding for back button */
+    height: 70px;
+    background: #151925;
     z-index: 100;
+    align-items: center;
+    justify-content: flex-start;
   }
-}
 
-@media (max-width: 380px) {
-  .content-box h1 {
-    font-size: 1.8rem;
+  .calendar-header-fixed h2 {
+    font-size: 1.3rem;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .carousel-container {
-    flex: 0 0 280px;
+  
+  /* Calendar Grid */
+  .months-scroll-container {
+    padding: 10px;
+    padding-bottom: 250px; /* Space for bottom sheet */
   }
-  .card-stack {
-    transform: scale(0.55);
+  
+  .month-block {
+    margin-bottom: 2rem;
   }
-  .content-box {
-    margin-top: 12vh;
+  
+  .day-cell {
+    border-radius: 6px;
   }
-}
+  
+  .day-number {
+    font-size: 0.75rem;
+    top: 2px;
+    left: 4px;
+  }
+  
+  .memory-count-badge {
+    width: 14px;
+    height: 14px;
+    font-size: 0.6rem;
+    top: 2px;
+    right: 2px;
+  }
 
-/* Responsive Adjustments for Calendar Memory Detail Overlay */
-@media (max-width: 768px) {
+  /* Calendar Memories List (Bottom Sheet) */
+  .calendar-entries-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 45vh; /* Half screen */
+    border-radius: 20px 20px 0 0;
+    transform: translateY(0); /* Visible state */
+    animation: slideUpBottom 0.3s ease-out;
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    z-index: 500;
+  }
+  
+  @keyframes slideUpBottom {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  /* --- MODALS (Memory Store/Open, Friend, Auth) --- */
+  
+  /* Memory Store Window (Modal) */
+  .memory-modal-window {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    border: none;
+    padding: 20px 20px 80px 20px; /* Bottom padding for sticky button */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Ensure form scrolls */
+  .memory-form {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 20px;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Sticky Save Button - MODIFIED: Now static at bottom of flow */
+  .save-memory-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 16px;
+    position: static; /* Unstick */
+    border-radius: 12px;
+    z-index: 1;
+  }
+
+  /* Memory Open Window (Detail View) */
+  .memory-view-window {
+    width: 100%;
+    height: 100%; /* Full screen presentation */
+    max-height: 100%;
+    border-radius: 0;
+    margin: 0;
+    border: none;
+  }
+  
+  .view-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px;
+  }
+  
+  .view-actions {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 15px;
+  }
+  
+  .view-content {
+    padding: 0 20px 40px;
+  }
+  
+  .view-gallery {
+    margin: 0 -20px 20px; /* Break out of padding */
+    padding: 0 20px 10px;
+  }
+  
+  .view-image-container {
+    flex: 0 0 240px;
+    height: 180px;
+  }
+
+  /* Close Button visibility */
+  .memory-view-window .close-modal-btn {
+    top: 15px;
+    right: 15px;
+    background: rgba(0,0,0,0.3); /* Ensure visible against potential header bg */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+
+  /* Friend/User Memory Windows (Detail Overlay) - Alternate View */
   .memory-detail-window {
     width: 100%;
     height: 100%;
     max-width: none;
-    max-height: none;
     border-radius: 0;
-    border: none;
-    display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Keep column to stack Back button above Content */
+    overflow: hidden; 
   }
 
-  /* Make the content area stack vertically */
   .detail-content {
-    flex-direction: column;
-    flex: 1; /* occupy remaining space */
-    overflow-y: auto; /* allow overall scroll if needed, though usually right side scrolls */
+      flex-direction: row; /* Horizontal separation (Side-by-side) */
+      height: 100%;
+      overflow: hidden;
   }
-
-  /* Image Section on Top */
+  
   .detail-left {
-    width: 100%;
-    height: 35vh; /* Fixed height for image area */
-    min-height: 250px;
-    flex: none; /* Don't grow/shrink */
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    height: 100%; 
+    width: 40%; /* Image section takes 40% width */
+    min-height: auto;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    border-bottom: none;
+    flex-shrink: 0; 
   }
-
-  /* Ensure background image covers the area properly */
-  .carousel-image {
-    background-size: cover; 
-  }
-
-  /* Text Content Section Below */
+  
   .detail-right {
+    height: 100%; 
+    flex: 1; /* Take remaining space */
+    width: 60%;
+    padding: 15px;
+    overflow-y: auto; /* Scroll text independently */
+  }
+  
+  .back-btn {
     width: 100%;
-    flex: 1;
+    justify-content: flex-start;
+    padding: 15px;
+    background: #1e2330;
+    flex-shrink: 0;
+  }
+
+  /* --- AUTH & PROFILE MODALS --- */
+  .profile-modal-window, .auth-modal-window {
+    width: 95%;
+    max-height: 90vh;
+    padding: 25px;
     overflow-y: auto;
-    padding: 20px;
   }
+}
 
-  /* Adjust header size */
-  .detail-header h3 {
-    font-size: 1.5rem;
+/* Extra Small Screens */
+@media (max-width: 380px) {
+  .hero-section {
+    padding-top: 60px;
   }
+  
+  .content-box h1 {
+    font-size: 2rem;
+  }
+  
+  .card-stack {
+    width: 220px;
+    height: 300px;
+  }
+  
+  .calendar-header-fixed h2 {
+    font-size: 1.1rem;
+  }
+  
+  .map-search-container {
+    left: 60px;
+    width: calc(100% - 70px);
+  }
+  
+  .back-home-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
 
-  /* Adjust nav buttons in carousel to be smaller/better positioned */
-  .carousel-nav {
-    width: 32px;
-    height: 32px;
-    font-size: 1rem;
+/* Mobile Navbar Button Fixes */
+@media (max-width: 600px) {
+  .nav-links {
+    gap: 8px; /* Tighter gap */
   }
-  .carousel-nav.prev { left: 10px; }
-  .carousel-nav.next { right: 10px; }
+  
+  .nav-links .btn-login, .nav-links .btn-signup {
+    padding: 0.4rem 0.8rem; /* Smaller padding */
+    font-size: 0.85rem;
+    height: 34px; /* Slightly smaller height */
+    width: auto;
+    transform: none !important; /* Override any existing scales */
+  }
 }
